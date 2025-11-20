@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <locale.h>
+
+#define CASAS_VERTICAL 2
+#define CASAS_HORIZONTAL 1
+
+void pausar() {
+    printf("\nPressione ENTER para o proximo movimento...");
+    while (getchar() != '\n'); 
+}
+
+void limpar_tela() {
+    
+}
+
+void mover_peao() {
+    printf("\n=== Movimento do Pe�o (1 casa para Cima) ===\n");
+    printf("Cima\n");
+    pausar();
+}
+
+void mover_torre() {
+    int i; 
+    
+    printf("\n=== Movimento da Torre (Exemplo 2 casas para Direita) ===\n");
+    for (i = 0; i < 2; i++) {
+        printf("Direita\n");
+    }
+    pausar();
+}
+
+void mover_cavalo() {
+    int movimentos_horizontais_concluidos = 0;
+    int i; 
+    
+    printf("\n"); 
+    printf("=== Movimento do Cavalo (2 para Baixo, 1 para Esquerda - em 'L') ===\n");
+
+    for (i = 0; i < CASAS_VERTICAL; i++) {
+        
+        printf("Baixo\n"); 
+        
+        pausar();
+    }
+    
+    while (movimentos_horizontais_concluidos < CASAS_HORIZONTAL) {
+        
+        printf("Esquerda\n"); 
+        
+        pausar();
+
+        movimentos_horizontais_concluidos++;
+    }
+
+    printf("Movimento do Cavalo em 'L' conclu�do!\n");
+}
+
+int main() {
+    
+    setlocale(LC_ALL, "Portuguese_Brazil"); 
+    
+    limpar_tela();
+    printf("--- Simulador de Movimento de Pe�as de Xadrez em C ---\n");
+    
+    mover_peao();
+    
+    mover_torre();
+    
+    mover_cavalo();
+    
+    printf("\n--- Fim da Simula��o ---\n");
+    
+    // CORRE��O: Adiciona uma pausa final para manter o CMD aberto.
+    printf("\nPrograma concluido. ");
+    pausar(); 
+    
+    return 0;
+}
