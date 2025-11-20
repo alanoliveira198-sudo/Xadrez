@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <stdlib.h> 
+#include <locale.h> 
+
+#define CASAS_MOVIDAS 4
+#define MOVIMENTO_CAVALO_CIMA 2
+#define MOVIMENTO_CAVALO_DIREITA 1
+#define TOTAL_PASSOS_BISPO 3 
+
+void pausar() {
+    getchar(); 
+    fflush(stdin); 
+}
+
+void moverTorreRecursivo(int casas_restantes) {
+    if (casas_restantes == 0) {
+        return;
+    }
+    printf("Direita\n");
+    pausar();
+    moverTorreRecursivo(casas_restantes - 1);
+}
+
+void moverBispoRecursivo(int casas_restantes) {
+    if (casas_restantes == 0) {
+        return;
+    }
+    printf("Cima e Direita\n"); 
+    pausar();
+    moverBispoRecursivo(casas_restantes - 1);
+}
+
+void moverRainhaRecursivo(int casas_restantes) {
+    if (casas_restantes == 0) {
+        return;
+    }
+    printf("Baixo e Esquerda\n");
+    pausar();
+    moverRainhaRecursivo(casas_restantes - 1);
+}
+
+void moverBispoLoopsAninhados(int passos) {
+    int i;
+    int j;
+
+    printf("\n[Bispo com Loops Aninhados (Diagonal Inferior Direita)]\n");
+    
+    for (i = 1; i <= passos; i++) {
+        for (j = 1; j <= 1; j++) { 
+            printf("Baixo e Direita\n");
+            pausar();
+        }
+    }
+}
+
+
+void moverCavaloLoopsComplexos() {
+    int l_move;
+    int i;
+
+    printf("\n[Cavalo com Loops Aninhados e Complexos (2 Cima, 1 Direita)]\n");
+    
+    int passos_total = 1; 
+    
+    for (l_move = 1; l_move <= passos_total; l_move++) {
+        
+        int cont_vertical = 0; 
+        
+        for (i = 1; i <= MOVIMENTO_CAVALO_CIMA + MOVIMENTO_CAVALO_DIREITA; i++) {
+            
+            int movimento_horizontal_feito = 0; 
+
+            if (cont_vertical < MOVIMENTO_CAVALO_CIMA) {
+                printf("Cima\n");
+                pausar();
+                cont_vertical++;
+                continue; 
+            }
+            
+            if (cont_vertical == MOVIMENTO_CAVALO_CIMA && movimento_horizontal_feito == 0) {
+                printf("Direita\n");
+                pausar();
+                movimento_horizontal_feito = 1;
+                break; 
+            }
+        }
+        
+        if (l_move == passos_total) {
+            break;
+        }
+    }
+}
+
+int main() {
+    
+    setlocale(LC_ALL, "Portuguese_Brazil"); 
+    
+    printf("**********************************************\n");
+    printf("** Simula��o de Movimentos de Xadrez Avan�ados **\n");
+    printf("**********************************************\n\n");
+    
+    printf("Pressione ENTER para iniciar a movimenta��o da TORRE...");
+    pausar();
+    
+    printf("\n--- MOVIMENTO DA TORRE (Recursivo) ---\n");
+    printf("Movendo %d casas para a Direita (Pressione ENTER a cada passo):\n", CASAS_MOVIDAS);
+    moverTorreRecursivo(CASAS_MOVIDAS);
+    printf("\nTorre: Movimento conclu�do.\n");
+    
+    printf("\nPressione ENTER para iniciar o movimento do BISPO (Recursivo)...");
+    pausar();
+
+    printf("\n--- MOVIMENTO DO BISPO (Recursivo) ---\n");
+    printf("Movendo %d casas na Diagonal Superior Direita (Pressione ENTER a cada passo):\n", CASAS_MOVIDAS);
+    moverBispoRecursivo(CASAS_MOVIDAS);
+    printf("\nBispo: Movimento conclu�do.\n");
+    
+    printf("\nPressione ENTER para iniciar o movimento da RAINHA (Recursivo)...");
+    pausar();
+
+    printf("\n--- MOVIMENTO DA RAINHA (Recursivo) ---\n");
+    printf("Movendo %d casas na Diagonal Inferior Esquerda (Pressione ENTER a cada passo):\n", CASAS_MOVIDAS);
+    moverRainhaRecursivo(CASAS_MOVIDAS);
+    printf("\nRainha: Movimento conclu�do.\n");
+
+    printf("\nPressione ENTER para iniciar o movimento do CAVALO (Loops Complexos)...");
+    pausar();
+
+    printf("\n--- MOVIMENTO DO CAVALO (Loops Complexos) ---\n");
+    printf("Executando movimento 'L' (Pressione ENTER a cada passo):\n");
+    moverCavaloLoopsComplexos();
+    printf("\nCavalo: Movimento conclu�do.\n");
+
+    printf("\nPressione ENTER para iniciar o movimento do BISPO (Loops Aninhados)...");
+    pausar();
+    
+    printf("\n--- MOVIMENTO DO BISPO (Loops Aninhados) ---\n");
+    printf("Movendo %d passos na Diagonal Inferior Direita (Pressione ENTER a cada passo):\n", TOTAL_PASSOS_BISPO);
+    moverBispoLoopsAninhados(TOTAL_PASSOS_BISPO);
+    printf("\nBispo: Movimento conclu�do.\n");
+    
+    printf("\n**********************************************\n");
+    printf("** Todos os movimentos complexos conclu�dos. **\n");
+    printf("**********************************************\n");
+    
+    printf("\nPrograma conclu�do. Pressione ENTER para sair...");
+    pausar(); 
+    
+    return 0;
+}
